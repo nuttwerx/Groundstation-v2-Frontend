@@ -79,6 +79,10 @@ class MainLayout extends Component {
           {name: 'Power Node', location: '/PowerNodeConfig'},
           {name: 'Backend Control', location: '/Backend'}
         ]
+      },
+      {
+        name: 'AI Project',
+        location: '/AI_Project'
       }
     ];
   }
