@@ -3,7 +3,7 @@ const util = require('util');
 
 module.exports = {
   streamPackets: function(client,callback, connectionStatusCallback){
-      const call = client.streamPackets();
+      const call = client.streamPackets({All: true, Parameters: []});
       console.log("stream requested");
       //console.log(util.inspect(call, {depth: null}));
       call.on('error', function(error){
