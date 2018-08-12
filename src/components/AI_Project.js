@@ -89,12 +89,6 @@ class AI_Project extends Component {
             <AiCommandDisplay
               StreamingPageManager={_this.state.streamManager}
               parameter={this.labels[0].value}/>
-            <GenericParameterLabel
-              StreamingPageManager={_this.state.streamManager}
-              parameter={this.labels[0].value}/>
-            <GenericParameterDisplay
-              StreamingPageManager={_this.state.streamManager}
-              parameter={this.labels[0].value}/>
           </div>
         </div>
       </div>
