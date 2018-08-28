@@ -59,9 +59,9 @@ message Ack {
 
 message ServerStatus {
     bool DataStoreManagerRunning = 1;
-	bool GRPCServerRunning = 2;
-	bool BroadcasterRunning = 3;
-	bool GSLoggerRunning = 4;
+    bool GRPCServerRunning = 2;
+    bool BroadcasterRunning = 3;
+    bool GSLoggerRunning = 4;
     repeated OpenPort OpenPorts = 5;
 }
 

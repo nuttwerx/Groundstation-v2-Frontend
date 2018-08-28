@@ -3,6 +3,7 @@ import StreamingPageManager from './../StreamingPageManager';
 import createSocket from '../shared/socket';
 import TextInput from './displaycomponents/TextInput';
 import ConnectionStatusDisplay from './displaycomponents/ConnectionStatusDisplay';
+import BackendStatusDisplay from './displaycomponents/BackendStatusDisplay';
 import GenericParameterLabel from './displaycomponents/GenericParameterLabel.js';
 let socket = createSocket();
 
@@ -18,12 +19,32 @@ class ServerControl extends Component {
 
     this.labels = [
       {label: 'GRPC Server Status', value: `GrpcServerStatus`, hex: 'false'},
-      {label: 'GRPC Server Current Endpoint', value: `GrpcServerEndPoint`, hex: 'false'}
+      {label: 'GRPC Server Current Endpoint', value: `GrpcServerEndPoint`, hex: 'false'},
+      {label: 'DataStore Manager', value: `DataStoreManagerRunning`, hex: 'false'},
+      {label: 'GRPC Server', value: `GRPCServerRunning`, hex: 'false'},
+      {label: 'Broadcaster', value: `BroadcasterRunning`, hex: 'false'},
+      {label: 'GS Logger', value: `GSLoggerRunning`, hex: 'false'}
     ];
   }
 
+  genStats () {
+    const length = this.labels.length;
+    let statArray = [];
+    for (let idx = 2; idx < length; idx++) {
+      statArray.push(
+        <div>
+          <label>{this.labels[idx].label}</label>
+          <BackendStatusDisplay
+        StreamingPageManager={this.state.streamManager}
+        parameter={this.labels[idx].value}/>
+        </div>
+      );
+    }
+    return statArray;
+  }
+
   componentDidMount () {
-    var _this = this;
+    let _this = this;
     this._isMounted = true;
   }
   componentWillUnmount () {
@@ -44,6 +65,15 @@ class ServerControl extends Component {
     e.preventDefault();
     socket.emit('Grpc:StreamPackets');
   }
+
+  startDataStoreManager (e) {
+    e.preventDefault();
+    socket.emit(`Backend:StartDatastoreManager`);
+  }
+  stopDataStoreManager (e) {
+    e.preventDefault();
+    socket.emit(`Backend:StopDatastoreManager`);
+  }
   render () {
     let _this = this;
     // let borderStyle = {border: '2px solid black', borderRadius: '10px', padding: '10px', width: '50%'};
@@ -62,7 +92,7 @@ class ServerControl extends Component {
               <GenericParameterLabel
                 StreamingPageManager={_this.state.streamManager}
                 parameter={this.labels[0].value}/>
-              <label>{this.labels[1].label}</label>
+              {this.genStats()}
               <GenericParameterLabel
                 StreamingPageManager={_this.state.streamManager}
                 parameter={this.labels[1].value}/>
@@ -73,6 +103,13 @@ class ServerControl extends Component {
             <div className="row">
               <button className="btn btn-success" onClick={this.startStreaming.bind(this)} style={{margin: 10}}>Start Streaming</button><br />
             </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-sm-5">
+            <h3 className="section-title">Service Control</h3>
+            <button type="button" className="btn btn-success" onClick={this.startDataStoreManager.bind(this)} style={{margin: 10}}>Start Datastore Manager</button>
+            <button type="button" className="btn btn-danger" onClick={this.stopDataStoreManager.bind(this)} style={{margin: 10}}>Stop Datastore Manager</button><br />
           </div>
         </div>
       </div>

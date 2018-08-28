@@ -3,16 +3,16 @@ const util = require('util');
 
 module.exports = {
   streamPackets: function(client,callback, connectionStatusCallback){
-      const call = client.streamPackets({All: true, Parameters: []});
-      console.log("stream requested");
-      //console.log(util.inspect(call, {depth: null}));
-      call.on('error', function(error){
-        console.error(error)
-      });
-      //call.on('cancelled',connectionStatusCallback);
-      call.on('status', connectionStatusCallback);
-      call.on('data',callback);
-      return call;
+    const call = client.streamPackets({All: true, Parameters: []});
+    console.log("stream requested");
+    //console.log(util.inspect(call, {depth: null}));
+    call.on('error', function(error){
+      console.error(error)
+    });
+    //call.on('cancelled',connectionStatusCallback);
+    call.on('status', connectionStatusCallback);
+    call.on('data',callback);
+    return call;
   },
   sendCommand: function(client, node, type, data0, data1, data2, data3){
     let command = {
@@ -56,6 +56,20 @@ module.exports = {
 
     }
   },
+
+  sendPySimControl: function (client,data) {
+    try{
+      console.log("sending py sim command: " + data);
+      const call = client.sendSimCommand({Command:data},function (err,response) {
+        if(err){
+          console.log("ERROR CONTROL SIM" + err);
+        }
+      })
+    }catch (err){
+
+    }
+  },
+
   ping: function(client,callback){
     try{
       const call = client.ping({}, function (err,response){
