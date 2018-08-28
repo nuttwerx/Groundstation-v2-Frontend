@@ -9,14 +9,16 @@ import createSocket from './shared/socket';
 
 import './index.css';
 
-let socket = createSocket();
+// let socket = createSocket();
 
 // Heartbeat signal
+// TODO:REACTIVATE HEARTBEAT
+/*
 setInterval(function () {
   socket.emit('Heartbeat:GS');
   socket.emit('Heartbeat:Power');
 }, 1000);
-
+*/
 ReactDOM.render(
   <AppContainer>
     <App />

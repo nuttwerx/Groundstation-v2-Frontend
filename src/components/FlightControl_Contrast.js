@@ -60,7 +60,7 @@ class FlightControl_Contrast extends Component {
           <form className="form-inline">
             <div className="form-group">
               <button type="button" className="btn btn-success" onClick={this.FCUContrast_StartStream}>Start Stream</button>
-              <button type="button" className="btn btn-danger" onClick={this.preventDefault}>Stop Stream</button>
+              <button type="button" className="btn btn-danger" onClick={this.FCUContrast_StopStream}>Stop Stream</button>
             </div>
           </form>
 

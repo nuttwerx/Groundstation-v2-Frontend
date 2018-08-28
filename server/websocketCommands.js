@@ -159,7 +159,7 @@ module.exports = function (io, room, podCommands, commConfig, config, romIDScann
       'FlightControl_Contrast:StartStream': () => {
         podCommands.FCUContrast_StartStream();
       },
-      'FlightControl_Contrast:StopStrean': () => {
+      'FlightControl_Contrast:StopStream': () => {
         podCommands.FCUContrast_StopStream();
       },
 
